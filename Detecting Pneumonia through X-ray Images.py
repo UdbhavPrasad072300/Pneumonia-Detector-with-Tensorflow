@@ -9,8 +9,8 @@
 # Github: https://github.com/UdbhavPrasad072300 <br>
 # Computer Science Co-op - Ryerson University <br> <hr>
 # Making a Convolutional Neural Network with Keras and back-end Tensorflow to detect whether someone has pneumonia based on an X-ray scan of their chest <br>
-# An accuracy of <b>97.27%</b> was achieved for Training Set & <br>
-# An accuracy of <b>90.03%</b> was achieved for Validation Set 
+# An accuracy of <b>96%</b> was achieved for Training Set & <br>
+# An accuracy of <b>90%</b> was achieved for Validation Set 
 
 # ## Importing Modules
 
@@ -43,6 +43,9 @@ print(device_lib.list_local_devices())
 # In[3]:
 
 
+#strategy = tf.distribute.MirroredStrategy(devices=None, cross_device_ops=None)
+
+#with strategy.scope():
 classifier = Sequential()
 
 
@@ -80,7 +83,6 @@ classifier.add(Flatten())
 # In[7]:
 
 
-classifier.add(Dense(units = 128, activation = 'relu'))
 classifier.add(Dense(units = 128, activation = 'relu'))
 classifier.add(Dense(units = 1, activation = 'sigmoid'))
 
@@ -130,15 +132,15 @@ classifier.summary()
 
 # ## Training the Network with Data
 
-# Steps per epoch: 350 <br>
-# Num. of epochs: 20 <br>
+# Steps per epoch: 250 <br>
+# Num. of epochs: 15 <br>
 
 # In[12]:
 
 
 history = classifier.fit_generator(training_set,
-                         steps_per_epoch = 350,
-                         epochs = 20,
+                         steps_per_epoch = 250,
+                         epochs = 15,
                          validation_data = test_set,
                          validation_steps = 200)
 
@@ -203,7 +205,7 @@ print(prediction) # Expected: "OMG YOU HAVE PNEUMONIA"
 
 # Validation Test Set Accuracy and the Training Set
 
-# In[22]:
+# In[18]:
 
 
 import matplotlib.pyplot as plt
